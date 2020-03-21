@@ -126,6 +126,27 @@ class RedLight implements Light {
 }
 
 public class MediatorAfter {
+  public static void testWithMediator() {
+    class TestMediator implements AbstractMediator {
+      int presses = 0;
+      @Override
+      public void processButtonPress(Button button) {
+        presses++;
+      }
+
+      @Override
+      public void processLightManualTurnOff(Light light) {
+
+      }
+    }
+    TestMediator testMediator = new TestMediator();
+    BigButton bigButton = new BigButton(testMediator);
+    bigButton.press();
+    bigButton.press();
+    bigButton.press();
+    System.out.println(testMediator.presses);
+  }
+
   public static void main(String args[]) {
     Mediator mediator = new Mediator();
 
@@ -142,5 +163,8 @@ public class MediatorAfter {
     smallButton.press();
     bigButton.press();
     redLight.manualTurnOff();
+
+
+    testWithMediator();
   }
 }
